@@ -95,7 +95,8 @@ class MainHandler(tornado.web.RequestHandler):
     app_data = request.headers['appdata']
     app_data  = app_data.split(':')
     app_id = app_data[0]
- 
+
+    raise Exception("Brian's attempt to break TQ") 
     if pb_type == "Request":
       self.remote_request(app_id, http_request_data)
     else:
@@ -109,7 +110,7 @@ class MainHandler(tornado.web.RequestHandler):
         up in json.
     """
     global task_queue    
-    self.write('{"status":"up"}')
+    #self.write('{"status":"up"}')
     self.finish()
 
   def remote_request(self, app_id, http_request_data):
