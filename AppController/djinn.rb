@@ -743,7 +743,7 @@ class Djinn
       status_file = "#{CONFIG_FILE_LOCATION}/status-#{ip}.json"
       begin
         status = HelperFunctions.read_file(status_file)
-        result << JSON.loads(status)
+        result << JSON.load(status)
       rescue Errno::ENOENT
         Djinn.log_warn("Could not open #{status_file}.")
       end
