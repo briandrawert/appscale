@@ -738,8 +738,15 @@ class Djinn
     result = []
     @nodes.each { |node|
       ip = node.private_ip
-      acc = AppControllerClient.new(ip, secret)
-      result << acc.get_stats(secret)
+      #acc = AppControllerClient.new(ip, secret)
+      #result << acc.get_stats(secret)
+      status_file = "#{CONFIG_FILE_LOCATION}/status-#{ip}.json"
+      begin
+        status = HelperFunctions.read_file(status_file)
+        result << JSON.loads(status)
+      rescue Errno::ENOENT
+        Djinn.log_warn("Could not open #{status_file}.")
+      end
     }
     return JSON.dump(result)
   end 
